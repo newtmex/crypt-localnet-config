@@ -16,16 +16,16 @@
     #   "1" for Mainnet
     #   "D" for Devnet
     #   "T" for Testnet
-    ChainID = "1"
+    ChainID = "crypt-testnet"
 
     # MinTransactionVersion represents the minimum transaction version accepted
     MinTransactionVersion = 1
 
     # GenesisString represents the encoded string for the genesis block
-    GenesisString = "546f207369676e69666963616e746c7920616363656c657261746520616c6c20746563686e6f6c6f676965732c20616e64207261646963616c6c7920696d70726f766520736f63696574792c2068756d616e6974792077696c6c206861766520746f206d69677261746520746f206120706f737420736361726369747920776f726c642e20456c726f6e642069732074686520666972737420636f6d706c65746520736f6c7574696f6e20746861742077696c6c20617474656d707420616e64206163686965766520746869732e0a0a54686520666f756e64696e67207465616d206f6620456c726f6e642069733a0a42656e69616d696e204d696e63750a4c756369616e204d696e63750a4c756369616e20546f6465610a41647269616e20446f62726974610a526f6265727420536173750a5261647520436869730a49756c69616e2050617363616c61750a53656261737469616e204d617269616e0a416e64726569204d6172696e6963610a437269737469616e20436f72636f7665616e750a44616e20566f6963750a44616e69656c20536572620a0a4e6f7461626c6520636f6e7472696275746f72733a0a42656e69616d696e20447261736f7665616e0a46656c69782043726973616e0a436f6e7374616e74696e20546f766973690a43616d696c2042616e63696f69750a416e647265692042616e63696f69750a416e64726569204164616d0a5365766572204d6f6c646f7665616e"
+    GenesisString = "496e206f7264657220746f2061636869657665207375627374616e7469616c2061646f7074696f6e206f6620626c6f636b636861696e20746563686e6f6c6f677920616e64206974732070726f6d697365733b2070617274696369706174696f6e20616e6420696e63656e74697665206d657472696373206d7573742062652070726f7065726c7920616c69676e65642e0a5468652043727970744761696e2050726f746f636f6c20697320616e20617474656d707420746f20626f6f7374207573657220656e676167656d656e74206f6e20766172696f757320506f53206e6574776f726b732c207468656e207574696d6174656c7920657870616e642074686520646563656e7472616c697a6174696f6e206f662073756368206e6574776f726b732e0a0a5468616e6b7320746f2074686520696e6e6f76617469766520736f6c7574696f6e2070726f7669646564206174204d756c746976657273582028666f726d65726c7920456c726f6e64292c2043727970744761696e207374616e6473206f6e207468652073686f756c64657273206f66206769616e74732e0a"
 
     # GenesisMaxNumberOfShards represents the maximum number of shards to be created at genesis (excluding metaChain shard)
-    GenesisMaxNumberOfShards  = 3
+    GenesisMaxNumberOfShards = 3
 
     # MaxConsecutiveRoundsOfRatingDecrease represents the max number of consecutive rounds in which a block is not proposed
     # on a shard and the validators' rating could be decreased. If, for instance, a shard gets stuck for more rounds
@@ -637,15 +637,15 @@
    Type = "json"
 
 [EpochStartConfig]
-    MinRoundsBetweenEpochs = 14400
-    RoundsPerEpoch         = 14400
+    MinRoundsBetweenEpochs = 30
+    RoundsPerEpoch         = 120
     # Min and Max ShuffledOutRestartThreshold represents the minimum and maximum duration of an epoch (in percentage) after a node which
     # has been shuffled out has to restart its process in order to start in a new shard
     MinShuffledOutRestartThreshold = 0.01
     MaxShuffledOutRestartThreshold = 0.05
 
-    MinNumConnectedPeersToStart       = 6
-    MinNumOfPeersToConsiderBlockValid = 6
+    MinNumConnectedPeersToStart       = 2
+    MinNumOfPeersToConsiderBlockValid = 2
 
 # ResourceStats, if enabled, will output in a folder called "stats"
 # resource statistics. For example: number of active go routines, memory allocation, number of GC sweeps, etc.
@@ -687,9 +687,7 @@
         TimeOutForSCExecutionInMilliseconds = 10000 # 10 seconds = 10000 milliseconds
         WasmerSIGSEGVPassthrough            = false # must be false for release
         WasmVMVersions = [
-            { StartEpoch = 0, Version = "v1.2" },
-            { StartEpoch = 326, Version = "v1.3" },
-            { StartEpoch = 432, Version = "v1.4" },
+            { StartEpoch = 0, Version = "*" },
         ]
 
     [VirtualMachine.Querying]
@@ -697,9 +695,7 @@
         TimeOutForSCExecutionInMilliseconds = 10000 # 10 seconds = 10000 milliseconds
         WasmerSIGSEGVPassthrough            = false # must be false for release
         WasmVMVersions = [
-            { StartEpoch = 0, Version = "v1.2" },
-            { StartEpoch = 326, Version = "v1.3" },
-            { StartEpoch = 432, Version = "v1.4" },
+            { StartEpoch = 0, Version = "*" },
         ]
 
     [VirtualMachine.GasConfig]
@@ -920,14 +916,14 @@
     NumFullHistoryPeers = 3
 
 [HeartbeatV2]
-    PeerAuthenticationTimeBetweenSendsInSec          = 7200  # 2h
+    PeerAuthenticationTimeBetweenSendsInSec          = 600  # 10min
     PeerAuthenticationTimeBetweenSendsWhenErrorInSec = 60    # 1min
     PeerAuthenticationThresholdBetweenSends          = 0.1   # 10%
     HeartbeatTimeBetweenSendsInSec                   = 300   # 5min
     HeartbeatTimeBetweenSendsDuringBootstrapInSec    = 300   # 5min
     HeartbeatTimeBetweenSendsWhenErrorInSec          = 60    # 1min
     HeartbeatThresholdBetweenSends                   = 0.1   # 10%
-    HeartbeatExpiryTimespanInSec                     = 14400 # 4h
+    HeartbeatExpiryTimespanInSec                     = 3600 # 1h
     MinPeersThreshold                                = 0.8   # 80%
     DelayBetweenRequestsInSec                        = 5     # 5sec
     MaxTimeoutInSec                                  = 7200  # 2h
